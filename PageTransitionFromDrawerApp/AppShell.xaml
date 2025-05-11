@@ -7,16 +7,71 @@
     Shell.FlyoutBehavior="Flyout"
     Title="PageTransitionFromDrawerApp">
 
-    <!-- Menu Header -->
+    <!-- Flyout Header: Displays the app title -->
     <Shell.FlyoutHeader>
         <StackLayout>
             <Label Text="My App" FontSize="24" HorizontalOptions="Center" Padding="10" />
         </StackLayout>
     </Shell.FlyoutHeader>
 
-    <!-- Menu Item -->
-    <FlyoutItem Title="Home" Icon="home.png">
+    <!-- FlyoutItem: Home page, accessible via Flyout menu -->
+    <!-- Route is implicitly registered as "MainPage" -->
+    <FlyoutItem Title="Home" Icon="home.png" Route="MainPage">
         <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+    </FlyoutItem>
+
+    <!-- FlyoutItem: Page1, no explicit Route attribute -->
+    <!-- Implicit Route="Page1" is assigned, but absolute routing (//Page1) fails due to missing explicit Route -->
+    <!-- Use relative routing (Page1) for navigation -->
+    <FlyoutItem Title="Page1">
+        <ShellContent ContentTemplate="{DataTemplate local:Page1}" />
+    </FlyoutItem>
+
+    <!-- FlyoutItem: Page2, with explicit Route attribute -->
+    <!-- Absolute routing (//Page2) works because Route is defined in the visual hierarchy -->
+    <!-- Query parameters are not supported in this configuration -->
+    <FlyoutItem Title="Page2">
+        <ShellContent Route="Page2" ContentTemplate="{DataTemplate local:Page2}" />
+    </FlyoutItem>
+
+    <!-- MenuItem: Page3, navigates via Command -->
+    <!-- No Route defined, so absolute routing (//Page3) fails -->
+    <!-- Use relative routing or register Route dynamically (see AppShell.xaml.cs) -->
+    <MenuItem Text="Page3" Command="{Binding NavigateToPage3Command}" />
+
+    <!-- MenuItem: Page4, navigates via Command -->
+    <!-- Invisible FlyoutItem with Route="Page4" enables absolute routing (//Page4) -->
+    <MenuItem Text="Page4" Command="{Binding NavigateToPage4Command}" />
+    <FlyoutItem FlyoutItemIsVisible="False">
+        <ShellContent Route="Page4" ContentTemplate="{DataTemplate local:Page4}" />
+    </FlyoutItem>
+
+    <!-- MenuItem: Page5, navigates via Command -->
+    <!-- Route is registered dynamically in AppShell.xaml.cs, but absolute routing (//Page5) fails -->
+    <!-- Use relative routing (Page5) for navigation -->
+    <MenuItem Text="Page5" Command="{Binding NavigateToPage5Command}" />
+
+    <!-- MenuItem: Page6, navigates via Command with query parameter -->
+    <!-- Invisible FlyoutItem with Route="Page6" enables absolute routing (//Page6) -->
+    <MenuItem Text="Page6" Command="{Binding NavigateToPage6Command}" />
+    <FlyoutItem FlyoutItemIsVisible="False">
+        <ShellContent Route="Page6" ContentTemplate="{DataTemplate local:Page6}" />
+    </FlyoutItem>
+
+    <!-- MenuItem: Page6 with XAML parameter, passes parameter via CommandParameter -->
+    <MenuItem Text="Page6 with Param" Command="{Binding NavigateToPage6WithParamCommand}" CommandParameter="messageFromXaml" />
+
+    <!-- MenuItem: Page6 with ShellNavigationQueryParameters -->
+    <MenuItem Text="Page6 with Query Params" Command="{Binding NavigateToPage6WithQueryParamsCommand}" />
+
+    <!-- MenuItem: Page6 with constructor alert (demonstrates limitation) -->
+    <MenuItem Text="Page6 with Constructor" Command="{Binding NavigateToPage6WithConstructorCommand}" />
+
+    <!-- MenuItem: Page7, navigates with complex object parameter -->
+    <!-- Invisible FlyoutItem with Route="Page7" enables absolute routing (//Page7) -->
+    <MenuItem Text="Page7" Command="{Binding NavigateToPage7Command}" />
+    <FlyoutItem FlyoutItemIsVisible="False">
+        <ShellContent Route="Page7" ContentTemplate="{DataTemplate local:Page7}" />
     </FlyoutItem>
 
 </Shell>
