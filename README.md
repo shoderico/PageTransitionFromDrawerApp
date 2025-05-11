@@ -21,7 +21,7 @@ The project highlights why absolute routing (`//PageX`) fails for dynamically re
 ## Setup
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/maui-flyout-navigation-demo.git
+   git clone https://github.com/shoderico/maui-flyout-navigation-demo.git
    ```
 2. Open the solution (`PageTransitionFromDrawerApp.sln`) in Visual Studio.
 3. Restore NuGet packages.
